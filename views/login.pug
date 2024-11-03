@@ -1,0 +1,18 @@
+doctype html 
+html 
+    head 
+        title Login 
+        //link(rel="stylesheet", href="static/css/login.css") 
+    body 
+        #container 
+            form(action="/login" method="POST")
+                h1 Login 
+                label Username: 
+                input(type="text" name="username")
+                input(type="submit" value="Login")
+        br
+        #container2
+            button(id="userBtn")
+                a(href="/users") Users
+            button(id="postBtn")
+                a(href="/posts") Posts
