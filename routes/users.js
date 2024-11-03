@@ -4,6 +4,12 @@ const router = express.Router(); // Single routing
 const users = require("../data/users");
 const error = require("../utilities/error");
 
+// middleware that is specific to this router
+router.use((req, res, next) => {
+  console.log("User Request Time: ", Date.now());
+  next();
+}); 
+
 // This is the same code as the previous example!
 // We've simply changed "app" to "router" and
 // included an export at the end of the file.
@@ -26,6 +32,8 @@ router
   .post((req, res) => {
     if (req.body.name && req.body.username && req.body.email) {
       if (users.find((u) => u.username == req.body.username)) {
+        //res.json({ error: "Username Already Taken" });
+        //return;
         next(error(409, "Username Already Taken"));
       }
 
@@ -40,6 +48,8 @@ router
       res.json(users[users.length - 1]);
     } else next(error(400, "Insufficient Data"));
     //res.json({ error: "Insufficient Data" });
+    //next(error(400, "Insufficient Data"));
+    
   });
 
 router
@@ -61,6 +71,7 @@ router
     ];
 
     if (user) res.json({ user, links });
+    //if (user) res.json(user);
     else next();
   })
   .patch((req, res, next) => {
@@ -73,7 +84,9 @@ router
       }
     });
 
-    if (user) res.json(user);
+    //if (user) res.json(user);
+    if (user) res.json({ user, links });
+
     else next();
   })
   .delete((req, res, next) => {
@@ -84,7 +97,8 @@ router
       }
     });
 
-    if (user) res.json(user);
+    //if (user) res.json(user);
+    if (user) res.json({ user, links });
     else next();
   });
 
