@@ -35,6 +35,8 @@ router
       posts.push(post);
       res.json(posts[posts.length - 1]);
     } else next(error(400, "Insufficient Data"));
+    //res.json({ error: "Insufficient Data" });
+    //next(error(400, "Insufficient Data"));
   });
 
 router
