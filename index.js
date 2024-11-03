@@ -1,23 +1,23 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-//const path = require("path");
-
-// These are now route imports, not database imports!
-const users = require("./routes/users");
-const posts = require("./routes/posts");
-//const login = require("./routes/login");
-const error = require("./utilities/error");
+const path = require("path");
 
 const app = express();
 const port = 3000;
 
-//app.set("view engine", "pug");
-//app.set("views", path.join(__dirname, "views"));
+// These are now route imports, not database imports!
+const users = require("./routes/users");
+const posts = require("./routes/posts");
+const login = require("./routes/login");
+const error = require("./utilities/error");
+
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "views"));
 
 // Use our Routes
 app.use("/users", users);
 app.use("/posts", posts);
-//app.use("/login", login);
+app.use("/login", login);
 //app.use(express.static("images"));
 
 // We use the body-parser middleware FIRST so that
@@ -46,33 +46,9 @@ app.use((req, res, next) => {
     next();
 }); 
 
-/*
-// Valid API Keys.
-apiKeys = ["perscholas", "ps-example", "hJAsknw-L198sAJD-l3kasx"];
-
-// New middleware to check for API keys!
-// Note that if the key is not verified,
-// we do not call next(); this is the end.
-// This is why we attached the /api/ prefix
-// to our routing at the beginning!
-app.use("/api", function (req, res, next) {
-    var key = req.query["api-key"];
-
-    // Check for the absence of a key.
-    if (!key) next(error(400, "API Key Required"));
-
-    // Check for key validity.
-    if (apiKeys.indexOf(key) === -1) next(error(401, "Invalid API Key"));
-
-    // Valid key! Store it in req.key for route access.
-    req.key = key;
-    next();
-});
-*/
-
-// Use our Routes
-//app.use("/api/users", users);
-//app.use("/api/posts", posts);
+app.get("/", (req, res) => {
+    res.render("home");
+}); 
 
 // Adding some HATEOAS links.
 /* app.get("/", (req, res) => {
@@ -83,19 +59,6 @@ app.use("/api", function (req, res, next) {
                 rel: "users",
                 type: "GET",
             },
-        ],
-    });
-});  */
-
-// Adding some HATEOAS links.
-app.get("/", (req, res) => {
-    res.json({
-        links: [
-            {
-                href: "/users",
-                rel: "users",
-                type: "GET",
-            },
             {
                 href: "/users",
                 rel: "users",
@@ -113,7 +76,7 @@ app.get("/", (req, res) => {
             },
         ],
     });
-});
+}); */
 
 // Custom 404 (not found) middleware.
 // Since we place this last, it will only process
