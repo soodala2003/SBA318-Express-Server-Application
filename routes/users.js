@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router(); // Single routing
 
 const users = require("../data/users");
+const error = require("../utilities/error");
 
 // This is the same code as the previous example!
 // We've simply changed "app" to "router" and
@@ -12,13 +13,20 @@ const users = require("../data/users");
 router
   .route("/")
   .get((req, res) => {
-    res.json(users);
+    const links = [
+      {
+        href: "users/:id",
+        rel: ":id",
+        type: "GET",
+      },
+    ];
+
+    res.json({ users, links });
   })
   .post((req, res) => {
     if (req.body.name && req.body.username && req.body.email) {
       if (users.find((u) => u.username == req.body.username)) {
-        res.json({ error: "Username Already Taken" });
-        return;
+        next(error(409, "Username Already Taken"));
       }
 
       const user = {
@@ -30,14 +38,29 @@ router
 
       users.push(user);
       res.json(users[users.length - 1]);
-    } else res.json({ error: "Insufficient Data" });
+    } else next(error(400, "Insufficient Data"));
+    //res.json({ error: "Insufficient Data" });
   });
 
 router
   .route("/:id")
   .get((req, res, next) => {
     const user = users.find((u) => u.id == req.params.id);
-    if (user) res.json(user);
+
+    const links = [
+      {
+        href: `/${req.params.id}`,
+        rel: "",
+        type: "PATCH",
+      },
+      {
+        href: `/${req.params.id}`,
+        rel: "",
+        type: "DELETE",
+      },
+    ];
+
+    if (user) res.json({ user, links });
     else next();
   })
   .patch((req, res, next) => {
