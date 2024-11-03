@@ -7,7 +7,7 @@ const posts = require("./routes/posts");
 
 const error = require("./utilities/error");
 
-const app =express();
+const app = express();
 const port =3000;
 
 // We use the body-parser middleware FIRST so that
@@ -36,6 +36,7 @@ app.use((req, res, next) => {
     next();
 });
 
+/*
 // Valid API Keys.
 apiKeys = ["perscholas", "ps-example", "hJAsknw-L198sAJD-l3kasx"];
 
@@ -57,6 +58,7 @@ app.use("/api", function (req, res, next) {
     req.key = key;
     next();
 });
+*/
 
 // Use our Routes
 app.use("/api/users", users);
