@@ -10,12 +10,12 @@ router.use((req, res, next) => {
   next();
 }); 
 
-// This is the same code as the previous example!
-// We've simply changed "app" to "router" and
-// included an export at the end of the file.
-// We also change the route paths to be relative to
-// the base paths defined in index.js.
+// define the base user page routes
+// note that the base route "/" is actually
+// "/users/", because of the way the main app
+// uses this router within index.js
 
+// the base paths defined in index.js.
 router
   .route("/")
   .get((req, res) => {
@@ -27,7 +27,7 @@ router
       },
     ];
 
-    res.json({ users, links });
+    res.json({ users, links }); 
   })
   .post((req, res) => {
     if (req.body.name && req.body.username && req.body.email) {
