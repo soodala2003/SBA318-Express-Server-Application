@@ -1,14 +1,24 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+//const path = require("path");
 
 // These are now route imports, not database imports!
 const users = require("./routes/users");
 const posts = require("./routes/posts");
-
+//const login = require("./routes/login");
 const error = require("./utilities/error");
 
 const app = express();
-const port =3000;
+const port = 3000;
+
+//app.set("view engine", "pug");
+//app.set("views", path.join(__dirname, "views"));
+
+// Use our Routes
+app.use("/users", users);
+app.use("/posts", posts);
+//app.use("/login", login);
+//app.use(express.static("images"));
 
 // We use the body-parser middleware FIRST so that
 // we have access to the parsed data within our routes.
@@ -34,7 +44,7 @@ app.use((req, res, next) => {
       console.log(`${JSON.stringify(req.body)}`);
     }
     next();
-});
+}); 
 
 /*
 // Valid API Keys.
@@ -61,43 +71,43 @@ app.use("/api", function (req, res, next) {
 */
 
 // Use our Routes
-app.use("/api/users", users);
-app.use("/api/posts", posts);
+//app.use("/api/users", users);
+//app.use("/api/posts", posts);
+
+// Adding some HATEOAS links.
+/* app.get("/", (req, res) => {
+    res.json({
+        links: [
+            {
+                href: "/users",
+                rel: "users",
+                type: "GET",
+            },
+        ],
+    });
+});  */
 
 // Adding some HATEOAS links.
 app.get("/", (req, res) => {
     res.json({
         links: [
             {
-                href: "/api",
-                rel: "api",
-                type: "GET",
-            },
-        ],
-    });
-});
-
-// Adding some HATEOAS links.
-app.get("/api", (req, res) => {
-    res.json({
-        links: [
-            {
-                href: "api/users",
+                href: "/users",
                 rel: "users",
                 type: "GET",
             },
             {
-                href: "api/users",
+                href: "/users",
                 rel: "users",
                 type: "POST",
             },
             {
-                href: "api/posts",
+                href: "/posts",
                 rel: "posts",
                 type: "GET",
             },
             {
-                href: "api/posts",
+                href: "/posts",
                 rel: "posts",
                 type: "POST",
             },
@@ -112,9 +122,11 @@ app.get("/api", (req, res) => {
 // last stop along the request-response cycle.
 
 // 404 Middleware
-app.use((req, res) => {
+/* app.use((req, res) => {
+    res.status(404);
+    //res.json({ error: "Resource Not Found" });
     next(error(404, "Resource Not Found"));
-});
+});  */
 
 // Error-handling middleware.
 // Any call to next() that includes an
