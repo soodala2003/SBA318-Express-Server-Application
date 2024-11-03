@@ -4,12 +4,16 @@ const router = express.Router();
 const posts = require("../data/posts");
 const error = require("../utilities/error");
 
-// This is the same code as the previous example!
-// We've simply changed "app" to "router" and
-// included an export at the end of the file.
-// We also change the route paths to be relative to
-// the base paths defined in index.js.
+// middleware that is specific to this router
+router.use((req, res, next) => {
+  console.log("User Request Time: ", Date.now());
+  next();
+});
 
+// define the base post page routes
+// note that the base route "/" is actually
+// "/posts/", because of the way the main app
+// uses this router within index.js
 router
   .route("/")
   .get((req, res) => {
