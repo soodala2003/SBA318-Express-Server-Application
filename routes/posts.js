@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const posts = require("../data/posts");
+const error = require("../utilities/error");
 
 // This is the same code as the previous example!
 // We've simply changed "app" to "router" and
@@ -12,7 +13,15 @@ const posts = require("../data/posts");
 router
   .route("/")
   .get((req, res) => {
-    res.json(posts);
+    const links = [
+      {
+        href: "posts/:id",
+        rel: ":id",
+        type: "GET",
+      },
+    ];
+
+    res.json({ posts, links });
   })
   .post((req, res) => {
     if (req.body.userId && req.body.title && req.body.content) {
@@ -25,14 +34,28 @@ router
 
       posts.push(post);
       res.json(posts[posts.length - 1]);
-    } else res.json({ error: "Insufficient Data" });
+    } else next(error(400, "Insufficient Data"));
   });
 
 router
   .route("/:id")
   .get((req, res, next) => {
     const post = posts.find((p) => p.id == req.params.id);
-    if (post) res.json(post);
+
+    const links = [
+      {
+        href: `/${req.params.id}`,
+        rel: "",
+        type: "PATCH",
+      },
+      {
+        href: `/${req.params.id}`,
+        rel: "",
+        type: "DELETE",
+      },
+    ];
+
+    if (post) res.json({ post, links });
     else next();
   })
   .patch((req, res, next) => {
