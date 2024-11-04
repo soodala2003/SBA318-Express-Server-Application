@@ -6,7 +6,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-    res.send(`Success: Your username is ${req.body.username}.`);
+    res.send(`Success: Your username is ${req.body.username} and your password is ${req.body.password}!`);
 });
 
 module.exports =router;
