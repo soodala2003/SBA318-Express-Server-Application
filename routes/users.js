@@ -84,9 +84,7 @@ router
       }
     });
 
-    //if (user) res.json(user);
-    if (user) res.json({ user, links });
-
+    if (user) res.json(user);
     else next();
   })
   .delete((req, res, next) => {
@@ -97,8 +95,7 @@ router
       }
     });
 
-    //if (user) res.json(user);
-    if (user) res.json({ user, links });
+    if (user) res.json(user);
     else next();
   });
 
