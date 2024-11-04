@@ -102,6 +102,20 @@ router
 });
 
 router
+  .route("/:id/posts")
+  .get((req, res, next) => {
+    //const userId = users.find((u) => u.id == req.params.id);
+    const userId = posts.find((u) => u.userId == req.params.id);
+
+    if (userId) {
+      let filteredPosts = posts.filter((u) => u.userId === userId);
+      res.json(filteredPosts);
+    } else {
+      next();
+    }
+});
+
+router
   .route("/:id/comments")
   .get((req, res, next) => {
     const userId = users.find((u) => u.id == req.params.id);
