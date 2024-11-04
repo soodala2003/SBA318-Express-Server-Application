@@ -18,7 +18,7 @@ app.use(bodyParser.json({ extended: true }));
 
 // serve static files from the public directory
 //app.use(express.static("./public"));
-app.use("/static", express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.set("view engine", "pug"); // register the template engine
 app.set("views", path.join(__dirname, "views")); // specify the views path
