@@ -29,7 +29,13 @@ router
       },
     ];
 
-    res.json({ users, links }); 
+    //res.json({ users, links }); 
+    res.render("users");//, {content: res.json({ users, links })});
+      /* { id: req.params.id, 
+        name: req.params.name,
+        username: req.params.username,
+        email: req.params.email
+      }); */
   })
   .post((req, res) => {
     if (req.body.name && req.body.username && req.body.email) {
@@ -52,12 +58,14 @@ router
     //res.json({ error: "Insufficient Data" });
     //next(error(400, "Insufficient Data"));
     
-  });
+});
 
 router
   .route("/:id")
   .get((req, res, next) => {
     const user = users.find((u) => u.id == req.params.id);
+    //console.log(res.json({useruser}));
+    const name = users.name;
 
     const links = [
       {
@@ -73,7 +81,6 @@ router
     ];
 
     if (user) res.json({ user, links });
-    //if (user) res.json(user);
     else next();
   })
   .patch((req, res, next) => {
@@ -101,7 +108,7 @@ router
     else next();
 });
 
-router
+/* router
   .route("/:id/posts")
   .get((req, res, next) => {
     //const userId = users.find((u) => u.id == req.params.id);
@@ -113,28 +120,20 @@ router
     } else {
       next();
     }
-});
+}); */
 
-router
+/* router
   .route("/:id/comments")
   .get((req, res, next) => {
     const userId = users.find((u) => u.id == req.params.id);
-    //console.log(userId);
-  
     const postId =  req.query.postId;
-    //let filteredComments = comments;
-
-    /* let filteredPosts = posts;
-    if (postId) {
-      filteredPosts = posts.filter((u) => u.id === postId);
-    } */
+    
     if (postId) {
       let filteredComments = comments.filter((u) => u.postId === postId);
       res.json(filteredComments);
     } else {
       next();
-    }
-    
-});
+    } 
+}); */
 
 module.exports = router;
