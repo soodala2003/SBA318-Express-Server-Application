@@ -4,7 +4,22 @@ html
         title User's Page 
     body 
         h1 User's Page
-            button(id="postBtn")
-                a(href="/posts") Posts
-            button(id="loginBtn")
-                a(href="/login") Login
+            div(id="main")
+                form(action="/users" method="GET")
+                    input(type="submit" value="GET")
+
+                input(type="submit" value="POST")
+                input(type="submit" value="PATCH")
+                input(type="submit" value="DELETE")
+                //button(id="getBtn" value="GET")
+                //button(id="postBtn")=POST
+                //button(id="patchBtn")=PATCH
+                //button(id="deleteBtn")=DELETE
+
+            div(id="container")=content
+                h2(id="id")=id 
+                h2(id="name")=name 
+                h2(id="username")=username 
+                h2(id="email")=email
+
+                
