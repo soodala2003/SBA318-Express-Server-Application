@@ -11,25 +11,20 @@ const posts = require("./routes/posts");
 const login = require("./routes/login");
 const error = require("./utilities/error");
 
-app.set("view engine", "pug");
-app.set("views", path.join(__dirname, "views"));
-
-// Use our Routes
-app.use("/users", users);
-app.use("/posts", posts);
-app.use("/login", login);
-//app.use(express.static("images"));
-
-// We use the body-parser middleware FIRST so that
-// we have access to the parsed data within our routes.
-// The parsed data will be located in "req.body".
-
 // Parsing Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ extended: true }));
 
-// New logging middleware to help us keep track of
-// requests during testing!
+// serve static files from the public directory
+//app.use(express.static("./public"));
+app.use("/static", express.static(path.join(__dirname, "public")));
+
+app.set("view engine", "pug"); // register the template engine
+app.set("views", path.join(__dirname, "views")); // specify the views path
+
+// We use the body-parser middleware FIRST so that
+// we have access to the parsed data within our routes.
+// The parsed data will be located in "req.body".
 
 // Logging Middlewaare
 app.use((req, res, next) => {
@@ -45,6 +40,14 @@ app.use((req, res, next) => {
     }
     next();
 }); 
+
+// Use our Routes
+app.use("/users", users);
+app.use("/posts", posts);
+app.use("/login", login);
+
+
+//app.use("/static", express.static("./public"));
 
 app.get("/", (req, res) => {
     res.render("home");
@@ -85,11 +88,11 @@ app.get("/", (req, res) => {
 // last stop along the request-response cycle.
 
 // 404 Middleware
-/* app.use((req, res) => {
+app.use((req, res) => {
     res.status(404);
     //res.json({ error: "Resource Not Found" });
     next(error(404, "Resource Not Found"));
-});  */
+});  
 
 // Error-handling middleware.
 // Any call to next() that includes an
