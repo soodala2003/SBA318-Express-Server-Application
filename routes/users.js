@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router(); // Single routing
 
 const users = require("../data/users");
+const posts = require("../data/posts");
+const comments = require("../data/comments");
 const error = require("../utilities/error");
 
 // middleware that is specific to this router
@@ -97,6 +99,28 @@ router
 
     if (user) res.json(user);
     else next();
-  });
+});
+
+router
+  .route("/:id/comments")
+  .get((req, res, next) => {
+    const userId = users.find((u) => u.id == req.params.id);
+    //console.log(userId);
+  
+    const postId =  req.query.postId;
+    //let filteredComments = comments;
+
+    /* let filteredPosts = posts;
+    if (postId) {
+      filteredPosts = posts.filter((u) => u.id === postId);
+    } */
+    if (postId) {
+      let filteredComments = comments.filter((u) => u.postId === postId);
+      res.json(filteredComments);
+    } else {
+      next();
+    }
+    
+});
 
 module.exports = router;
