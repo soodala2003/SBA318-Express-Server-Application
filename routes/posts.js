@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
+//const users = require("../data/users");
 const posts = require("../data/posts");
 const error = require("../utilities/error");
 
@@ -87,6 +88,19 @@ router
 
     if (post) res.json(post);
     else next();
-  });
+});
+
+router
+  .route("/")
+  .get((req, res, next) => {
+    const userId = req.query.userId;
+
+    if (userId) {
+      let filteredPosts = posts.filter((u) => u.userId == userId);
+      res.json(filteredPosts);
+    } else {
+      next();
+    }  
+});
 
 module.exports = router;
