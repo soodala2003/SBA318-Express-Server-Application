@@ -8,6 +8,7 @@ const port = 3000;
 // These are now route imports, not database imports!
 const users = require("./routes/users");
 const posts = require("./routes/posts");
+const comments = require("./routes/comments");
 const login = require("./routes/login");
 const error = require("./utilities/error");
 
@@ -44,6 +45,7 @@ app.use((req, res, next) => {
 // Use our Routes
 app.use("/users", users);
 app.use("/posts", posts);
+app.use("/comments", comments);
 app.use("/login", login);
 
 
