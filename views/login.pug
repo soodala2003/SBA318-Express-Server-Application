@@ -4,20 +4,26 @@ html
         title Login 
         link(rel="stylesheet" href="/login.css") 
     body 
-        #container 
+        div(id="main")
+            
+
+        #container
+            div(id="main" style="margin-top:100px")
+                button(id="postBtn")
+                    a(href="http://localhost:3000") Home
+                button(id="userBtn")
+                    a(href="/api") Users
+                
             form(action="/login" method="POST")
+                br
                 h1 Login 
-                label Username: 
+                label Username 
                 input(type="text" name="username")
                 br
-                label Password : 
+                label Password  
                 input(type="password" name="password")
                 br
                 input(type="submit" value="SUBMIT")
 
         br
-        #container2
-            button(id="userBtn")
-                a(href="/users") Users
-            button(id="postBtn")
-                a(href="/posts") Posts
+        
