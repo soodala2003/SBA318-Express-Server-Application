@@ -43,10 +43,10 @@ app.use((req, res, next) => {
 }); 
 
 // Use our Routes
-app.use("/users", users);
-app.use("/posts", posts);
-app.use("/comments", comments);
-app.use("/login", login);
+app.use("/api/users", users);
+app.use("/api/posts", posts);
+app.use("/api/comments", comments);
+app.use("/api/login", login);
 
 
 //app.use("/static", express.static("./public"));
@@ -56,8 +56,8 @@ app.get("/", (req, res) => {
 }); 
 
 // Adding some HATEOAS links.
-/* app.get("/", (req, res) => {
-    res.json({
+app.get("/api", (req, res) => {
+    /* res.json({
         links: [
             {
                 href: "/users",
@@ -80,8 +80,9 @@ app.get("/", (req, res) => {
                 type: "POST",
             },
         ],
-    });
-}); */
+    }); */
+    res.render("users");
+}); 
 
 // Custom 404 (not found) middleware.
 // Since we place this last, it will only process
