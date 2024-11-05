@@ -24,7 +24,7 @@ html
         div(id="get-by-id" style="margin-left:30px")
             form(action="/api/users" method="GET")
                 label Enter your User Id: 
-                    input(type="text" id="id" name="id")
+                    input(type="number" id="id" name="id" min="1")
                     input(type="submit" value="GET")
 
         button(id="userBtn1" style="margin-top:10px; margin-left:30px")
@@ -34,22 +34,29 @@ html
         button(id="userBtn3")
             a(href="/api/users/3") User ID: 3  
 
-        div(id="post" style="margin-top:10px; margin-left:30px")
+        div(id="patchUsers" style="margin-top:10px; margin-left:30px")
+            form(action=`/api/users/` method="PATCH")
+                label Edit your Information: 
+                    br
+                    input(type="number" id="id" name="id" min="1" placeholder="Enter user id")
+                    br
+                    input(type="text" id="name" name="name" placeholder="Enter name")
+                    br
+                    input(type="text" id="username" name="username" placeholder="Enter your username")
+                    br
+                    input(type="email" id="email" name="email" placeholder="Enter your email")
+                    input(type="submit" value="PATCH")
+
+        div(id="postPosts" style="margin-top:10px; margin-left:30px")
             form(action="/api/posts" method="POST")
                 label Create your Post: 
                     br
-                    input(type="text" id="userId" name="userId" placeholder="Enter User ID")
+                    input(type="number" id="userId" name="userId" min="1" placeholder="Enter user id")
                     br
-                    input(type="text" id="title" name="title" placeholder="Enter Title")
+                    input(type="text" id="title" name="title" placeholder="Enter title")
                     br
                     //input(type="text" id="content" name="content" placeholder="Enter Content")
-                    textarea(id="content" name="content" rows="3" cols="20" placeholder="Enter Content")
+                    textarea(id="content" name="content" rows="3" cols="20" placeholder="Enter content")
                     input(type="submit" value="POST")
-        
-        div(id="container")=content
-            h2(id="id")=href
-            h2(id="name")=name 
-            h2(id="username")=username 
-            h2(id="email")=email
         
                 
