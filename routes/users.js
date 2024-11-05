@@ -7,16 +7,12 @@ const comments = require("../data/comments");
 const error = require("../utilities/error");
 
 // middleware that is specific to this router
-/* router.use((req, res, next) => {
+router.use((req, res, next) => {
   console.log("User Request Time: ", Date.now());
   next();
-});  */
+}); 
 
-// define the base user page routes
-// note that the base route "/" is actually
-// "/api/users/", because of the way the main app
-// uses this router within index.js
-
+// the base route "/" is actually "/api/users/"
 // the base paths defined in index.js.
 router
   .route("/")
@@ -29,16 +25,11 @@ router
       },
     ];
   
-    //if (users) 
     res.json({ users, links });
-    //else next();
-    
   })
   .post((req, res, next) => {
     if (req.body.name && req.body.username && req.body.email) {
       if (users.find((u) => u.username == req.body.username)) {
-        //res.json({ error: "Username Already Taken" });
-        //return;
         next(error(409, "Username Already Taken"));
       }
 
@@ -52,18 +43,13 @@ router
       users.push(user);
       res.json(users[users.length - 1]);
     } else next(error(400, "Insufficient Data"));
-    //res.json({ error: "Insufficient Data" });
-    //next(error(400, "Insufficient Data"));
-    
 });
 
 router
   .route("/:id")
   .get((req, res, next) => {
-    const userId = `/${req.params.id}`;
+    //const userId = `/${req.params.id}`;
     const user = users.find((u) => u.id == req.params.id);
-    //console.log(res.json({useruser}));
-    //const name = users.name;
 
     const links = [
       {
@@ -79,7 +65,6 @@ router
     ];
 
     if (user) res.json({ user, links });
-    //if (user) res.render("users", {href: userId});
     else next();
   })
   .patch((req, res, next) => {
