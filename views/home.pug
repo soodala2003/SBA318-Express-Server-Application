@@ -6,17 +6,10 @@ html
     body 
         h1 Home 
 
-        #container 
+        //#container 
+        nav
             button(id="userBtn")
-                a(href="/users") Users
-            button(id="postBtn")
-                a(href="/posts") Posts
-            button(id="commentBtn")
-                a(href="/comments") Comments    
+                a(href="/api") Users   
             button(id="loginBtn")
-                a(href="/login") Login
-        br
-        // - #container2
-            form(action="/download-image")
-                button(id="imgBtn" type="submit")="Download"
-            
+                a(href="/api/login") Login
+        
