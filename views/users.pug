@@ -1,25 +1,55 @@
 doctype html 
 html 
     head 
-        title User's Page 
+        title User's Page
+
     body 
         h1 User's Page
-            div(id="main")
-                form(action="/users" method="GET")
+
+        ul
+            li Show all data: 
+                button(id="userBtn")
+                    a(href="/api/users") GET
+            li Show all posts: 
+                button(id="postBtn")
+                    a(href="/api/posts") POST
+                button(id="patchBtn")
+                    a(href="/#") PATCH    
+                button(id="deleteBtn")
+                    a(href="/#") DELETE
+            li Show all comments:
+                button(id="commentBtn")
+                    a(href="/api/comments") COMMENT    
+
+        div(id="get-by-id" style="margin-left:30px")
+            form(action="/api/users" method="GET")
+                label Enter your User Id: 
+                    input(type="text" id="id" name="id")
                     input(type="submit" value="GET")
 
-                input(type="submit" value="POST")
-                input(type="submit" value="PATCH")
-                input(type="submit" value="DELETE")
-                //button(id="getBtn" value="GET")
-                //button(id="postBtn")=POST
-                //button(id="patchBtn")=PATCH
-                //button(id="deleteBtn")=DELETE
+        button(id="userBtn1" style="margin-top:10px; margin-left:30px")
+            a(href="/api/users/1") User ID: 1
+        button(id="userBtn2")
+            a(href="/api/users/2") User ID: 2
+        button(id="userBtn3")
+            a(href="/api/users/3") User ID: 3  
 
-            div(id="container")=content
-                h2(id="id")=id 
-                h2(id="name")=name 
-                h2(id="username")=username 
-                h2(id="email")=email
-
+        div(id="post" style="margin-top:10px; margin-left:30px")
+            form(action="/api/posts" method="POST")
+                label Create your Post: 
+                    br
+                    input(type="text" id="userId" name="userId" placeholder="Enter User ID")
+                    br
+                    input(type="text" id="title" name="title" placeholder="Enter Title")
+                    br
+                    //input(type="text" id="content" name="content" placeholder="Enter Content")
+                    textarea(id="content" name="content" rows="3" cols="20" placeholder="Enter Content")
+                    input(type="submit" value="POST")
+        
+        div(id="container")=content
+            h2(id="id")=href
+            h2(id="name")=name 
+            h2(id="username")=username 
+            h2(id="email")=email
+        
                 
