@@ -2,17 +2,19 @@ doctype html
 html 
     head 
         title Login 
-        link(rel="stylesheet" href="/login.css") 
+        link(rel="stylesheet" href="/login.css")
+        style.
+            a:link { text-decoration: none; }  
     body 
         div(id="main")
             
 
-        #container
+        #container 
             div(id="main" style="margin-top:100px")
                 button(id="postBtn")
                     a(href="http://localhost:3000") Home
-                button(id="userBtn")
-                    a(href="/api") Users
+                button(id="dataBtn")
+                    a(href="/api") Data 
                 
             form(action="/login" method="POST")
                 br
@@ -24,6 +26,4 @@ html
                 input(type="password" name="password")
                 br
                 input(type="submit" value="SUBMIT")
-
-        br
         
