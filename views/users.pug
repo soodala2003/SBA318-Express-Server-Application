@@ -1,62 +1,65 @@
 doctype html 
 html 
     head 
-        title User's Page
+        title Data Page
+        style.
+            a:link { text-decoration: none; }
 
     body 
-        h1 User's Page
+        h1 Data
+        div(id="container" style="display:flex;")
+            div(id="users")
+                ul 
+                    li Find all users: 
+                        button(id="userGetBtn")
+                            a(href="/api/users") GET
+                    br
+                    li Create a user: 
+                        form(action="/api/users" method="POST")
+                            input(type="text" id="name" name="name" placeholder="Enter name")
+                            br
+                            input(type="text" id="username" name="username" placeholder="Enter username")
+                            br
+                            input(type="email" id="email" name="email" placeholder="Enter email")
+                            input(type="submit" value="POST")
+                    br
+                    li Update a user: 
+                        form(action=`/api/users` method="PATCH")
+                            input(type="number" id="id" name="id" min="1" placeholder="Enter user id")
+                            br
+                            input(type="text" id="name" name="name" placeholder="Enter name")
+                            br
+                            input(type="text" id="username" name="username" placeholder="Enter username")
+                            br
+                            input(type="email" id="email" name="email" placeholder="Enter email")
+                            input(type="submit" value="PATCH")
+                    br
+                    li Delete a user: 
 
-        ul
-            li Show all data: 
-                button(id="userBtn")
-                    a(href="/api/users") GET
-            li Show all posts: 
-                button(id="postBtn")
-                    a(href="/api/posts") POST
-                button(id="patchBtn")
-                    a(href="/#") PATCH    
-                button(id="deleteBtn")
-                    a(href="/#") DELETE
-            li Show all comments:
-                button(id="commentBtn")
-                    a(href="/api/comments") COMMENT    
+            div(id="posts")
+                ul 
+                    li Find all posts: 
+                        button(id="userGetBtn")
+                            a(href="/api/posts") GET
+                    br
+                    li Create a post: 
+                        form(action="/api/posts" method="POST")
+                            input(type="number" id="userId" name="userId" min="1" placeholder="Enter user id")
+                            br
+                            input(type="text" id="title" name="title" placeholder="Enter title")
+                            br
+                            textarea(id="content" name="content" rows="3" cols="20" placeholder="Enter content")
+                            input(type="submit" value="POST")
+                    br
+                    li Filter Posts by User ID: 
+                        form(action="/api/posts" method="GET")
+                            input(type="number" id="userId" name="userId" min="1" placeholder="Enter user id")
+                            input(type="submit" value="GET")
+                    br
 
-        div(id="get-by-id" style="margin-left:30px")
-            form(action="/api/users" method="GET")
-                label Enter your User Id: 
-                    input(type="number" id="id" name="id" min="1")
-                    input(type="submit" value="GET")
-
-        button(id="userBtn1" style="margin-top:10px; margin-left:30px")
-            a(href="/api/users/1") User ID: 1
-        button(id="userBtn2")
-            a(href="/api/users/2") User ID: 2
-        button(id="userBtn3")
-            a(href="/api/users/3") User ID: 3  
-
-        div(id="patchUsers" style="margin-top:10px; margin-left:30px")
-            form(action=`/api/users/` method="PATCH")
-                label Edit your Information: 
-                    br
-                    input(type="number" id="id" name="id" min="1" placeholder="Enter user id")
-                    br
-                    input(type="text" id="name" name="name" placeholder="Enter name")
-                    br
-                    input(type="text" id="username" name="username" placeholder="Enter your username")
-                    br
-                    input(type="email" id="email" name="email" placeholder="Enter your email")
-                    input(type="submit" value="PATCH")
-
-        div(id="postPosts" style="margin-top:10px; margin-left:30px")
-            form(action="/api/posts" method="POST")
-                label Create your Post: 
-                    br
-                    input(type="number" id="userId" name="userId" min="1" placeholder="Enter user id")
-                    br
-                    input(type="text" id="title" name="title" placeholder="Enter title")
-                    br
-                    //input(type="text" id="content" name="content" placeholder="Enter Content")
-                    textarea(id="content" name="content" rows="3" cols="20" placeholder="Enter content")
-                    input(type="submit" value="POST")
-        
+            div(id="comments")
+                ul 
+                    li Get Comments:  
+                        button(id="commentGetBtn")
+                            a(href="/api/comments") GET  
                 
