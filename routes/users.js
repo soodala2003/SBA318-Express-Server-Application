@@ -17,15 +17,7 @@ router.use((req, res, next) => {
 router
   .route("/")
   .get((req, res) => {
-    const links = [
-      {
-        href: "users/:id",
-        rel: ":id",
-        type: "GET",
-      },
-    ];
-  
-    res.json({ users, links });
+    res.render("getUser", { users: users });
   })
   .post((req, res, next) => {
     if (req.body.name && req.body.username && req.body.email) {
@@ -48,7 +40,6 @@ router
 router
   .route("/:id")
   .get((req, res, next) => {
-    //const userId = `/${req.params.id}`;
     const user = users.find((u) => u.id == req.params.id);
 
     const links = [
@@ -64,7 +55,7 @@ router
       },
     ];
 
-    if (user) res.json({ user, links });
+    if (user) res.render("getUserId", {user: user, id: req.params.id });
     else next();
   })
   .patch((req, res, next) => {
