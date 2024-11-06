@@ -1,0 +1,37 @@
+doctype html 
+html
+    head 
+        title User page 
+        link(rel="stylesheet" href="/getUser.css")
+        style.
+            a:link { text-decoration: none; } 
+            
+    body
+        h1 All Users Data 
+        p(style="display:none") users= #{users}
+        //p(style="display:none") links= #{links}
+        div(id="main")
+            button(id="postBtn")
+                a(href="http://localhost:3000") Home
+            button(id="dataBtn")
+                a(href="/api") Data 
+        br
+        ul
+            li Find user details: 
+                div(class="dropdown") 
+                    button(class="dropBtn") GET 
+                        div(class="dropdown-content")
+                            a(href="/api/users/1") User ID: 1
+                            a(href="/api/users/2") User ID: 2
+                            a(href="/api/users/3") User ID: 3
+               
+            each index in users 
+                br
+                each val, key in index
+                    p= key + ': ' + val
+                
+
+            
+
+
+            
