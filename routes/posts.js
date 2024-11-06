@@ -88,15 +88,19 @@ router
 
 router
   .route("/")
-  .get((req, res, next) => {
+  .get((req, res) => {
     const userId = req.query.userId;
-
+    console.log(userId);
+    let filterdUserId = posts.filter((user) => user.userId == userId);
+    res.json(filterdUserId); 
+  });
+    /*
     if (userId) {
-      let filteredPosts = posts.filter((u) => u.userId == userId);
-      res.json(filteredPosts);
+      filteredByUserId = filteredByUserId.filter((u) => u.userId == userId);
+      res.json(filteredByUserId);
     } else {
       next();
-    }  
-});
+    }   */
+
 
 module.exports = router;
