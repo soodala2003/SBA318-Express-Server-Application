@@ -17,15 +17,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ extended: true }));
 
 // serve static files from the public directory
-//app.use(express.static("./public"));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.set("view engine", "pug"); // register the template engine
 app.set("views", path.join(__dirname, "views")); // specify the views path
 
-// We use the body-parser middleware FIRST so that
-// we have access to the parsed data within our routes.
-// The parsed data will be located in "req.body".
+// Use our Routes
+app.use("/api/users", users);
+app.use("/api/posts", posts);
+app.use("/api/comments", comments);
+app.use("/api/login", login);
 
 // Logging Middlewaare
 app.use((req, res, next) => {
@@ -42,58 +43,18 @@ app.use((req, res, next) => {
     next();
 }); 
 
-// Use our Routes
-app.use("/api/users", users);
-app.use("/api/posts", posts);
-app.use("/api/comments", comments);
-app.use("/api/login", login);
-
-
-//app.use("/static", express.static("./public"));
-
 app.get("/", (req, res) => {
     res.render("home");
 }); 
 
 // Adding some HATEOAS links.
 app.get("/api", (req, res) => {
-    /* res.json({
-        links: [
-            {
-                href: "/users",
-                rel: "users",
-                type: "GET",
-            },
-            {
-                href: "/users",
-                rel: "users",
-                type: "POST",
-            },
-            {
-                href: "/posts",
-                rel: "posts",
-                type: "GET",
-            },
-            {
-                href: "/posts",
-                rel: "posts",
-                type: "POST",
-            },
-        ],
-    }); */
     res.render("users");
 }); 
-
-// Custom 404 (not found) middleware.
-// Since we place this last, it will only process
-// if no other routes have already sent a response!
-// We also don't need next(), since this is the
-// last stop along the request-response cycle.
 
 // 404 Middleware
 app.use((req, res) => {
     res.status(404);
-    //res.json({ error: "Resource Not Found" });
     next(error(404, "Resource Not Found"));
 });  
 
