@@ -1,0 +1,20 @@
+doctype html 
+html
+    head 
+        title User's Detail 
+        style.
+            a:link { text-decoration: none; } 
+            
+    body 
+        h1 User ID: #{id}
+        p(style="display:none") user= #{user}
+        div(id="main")
+            button(id="postBtn")
+                a(href="http://localhost:3000") Home
+            button(id="dataBtn")
+                a(href="/api") Data 
+        br
+        ul
+            each val, key in user
+                p= key + ': ' + val
+            li Update a user: 
