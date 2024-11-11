@@ -1,0 +1,68 @@
+doctype html 
+html 
+    head 
+        title Data Page
+        style.
+            a:link { text-decoration: none; }
+            #users, #posts, #comments { border:2px solid gray; border-radius:20px; width:300px; height:400px; margin-right:50px; }
+            h3 { margin-left:20px; }
+
+    body 
+        h1 Data
+        div(id="container" style="display:flex;")
+            div(id="users")
+                h3 Users
+                ul 
+                    li Find all users: 
+                        button(id="userGetBtn")
+                            a(href="/api/users") GET
+                    br
+                    li Create a user: 
+                        form(action="/api/users" method="POST")
+                            input(type="text" id="name" name="name" placeholder="Enter name")
+                            br
+                            input(type="text" id="username" name="username" placeholder="Enter username")
+                            br
+                            input(type="email" id="email" name="email" placeholder="Enter email")
+                            input(type="submit" value="POST")
+                    br
+
+            div(id="posts")
+                h3 Posts
+                ul 
+                    li Find all posts: 
+                        button(id="userGetBtn")
+                            a(href="/api/posts") GET
+                    br
+                    li Create a post: 
+                        form(action="/api/posts" method="POST")
+                            input(type="number" id="userId" name="userId" min="1" placeholder="Enter user id")
+                            br
+                            input(type="text" id="title" name="title" placeholder="Enter title")
+                            br
+                            textarea(id="content" name="content" rows="3" cols="20" placeholder="Enter content")
+                            input(type="submit" value="POST")
+                    br
+                    li Filter Posts by User ID: 
+                        form(id="postFilterForm" action=`/api/posts` method="GET")
+                            input(type="number" id="userId" name="userId" min="1" placeholder="Enter user id")
+                            input(type="submit" value="FILTER") 
+                        //form(id="postFilterForm" action=`/api/posts?userId=${filteredUserId}` method="GET")     
+                    br
+
+            div(id="comments")
+                h3 Comments
+                ul 
+                    li Find all comments:  
+                        button(id="commentGetBtn")
+                            a(href="/api/comments") GET  
+                    br
+                    li Create a comment: 
+                        form(action="/api/comments" method="POST")
+                            input(type="number" id="userId" name="userId" min="1" placeholder="Enter user id")
+                            br
+                            input(type="number" id="postId" name="postId" min="1" placeholder="Enter post id")
+                            br
+                            textarea(id="body" name="body" rows="3" cols="20" placeholder="Enter body")
+                            input(type="submit" value="POST")
+                
