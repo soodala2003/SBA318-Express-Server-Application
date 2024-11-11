@@ -8,6 +8,7 @@ html
     body 
         h1 User ID: #{id}
         p(style="display:none") user= #{user}
+        p(style="display:none") links= #{links}
         div(id="main")
             button(id="postBtn")
                 a(href="http://localhost:3000") Home
@@ -18,3 +19,25 @@ html
             each val, key in user
                 p= key + ': ' + val
             li Update a user: 
+                form(action=`/api/users` method="PATCH")
+                    input(type="number" id="id" name="id" min="1" placeholder="Enter user id")
+                    br
+                    input(type="text" id="name" name="name" placeholder="Enter name")
+                    br
+                    input(type="text" id="username" name="username" placeholder="Enter username")
+                    br
+                    input(type="email" id="email" name="email" placeholder="Enter email")
+                    input(type="submit" value="PATCH")
+                    br
+                    br
+            li Delete a user: 
+                form(action=`/api/users` method="DELETE")
+                    input(type="number" id="id" name="id" min="1" placeholder="Enter user id")
+                    br
+                    input(type="text" id="name" name="name" placeholder="Enter name")
+                    br
+                    input(type="text" id="username" name="username" placeholder="Enter username")
+                    br
+                    input(type="email" id="email" name="email" placeholder="Enter email")
+                    input(type="submit" value="DELETE")
+                    br
