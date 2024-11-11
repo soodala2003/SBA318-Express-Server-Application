@@ -20,7 +20,6 @@ router
         type: "GET",
       },
     ];
-    //res.json(links);
     res.json({ comments, links });
   })
   .post((req, res) => {
