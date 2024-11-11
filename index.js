@@ -49,7 +49,7 @@ app.get("/", (req, res) => {
 
 // Adding some HATEOAS links.
 app.get("/api", (req, res) => {
-    res.render("users");
+    res.render("data");
 }); 
 
 // 404 Middleware
