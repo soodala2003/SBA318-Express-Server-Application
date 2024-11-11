@@ -17,7 +17,14 @@ router.use((req, res, next) => {
 router
   .route("/")
   .get((req, res) => {
-    res.render("getUser", { users: users });
+    const links = [
+      {
+        href: "users/:id",
+        rel: ":id",
+        type: "GET",
+      },
+    ];
+    res.render("getUser", { users: users, links: links });
   })
   .post((req, res, next) => {
     if (req.body.name && req.body.username && req.body.email) {
@@ -55,9 +62,12 @@ router
       },
     ];
 
-    if (user) res.render("getUserId", {user: user, id: req.params.id });
+    if (user) res.render("getUserId", {user: user, id: req.params.id, links: links });
     else next();
-  })
+});
+
+router
+  .route("/:id")
   .patch((req, res, next) => {
     const user = users.find((u, i) => {
       if (u.id == req.params.id) {
@@ -83,32 +93,24 @@ router
     else next();
 });
 
-/* router
+// Retrieves all posts by a user with the specified id.
+router
   .route("/:id/posts")
   .get((req, res, next) => {
-    //const userId = users.find((u) => u.id == req.params.id);
-    const userId = posts.find((u) => u.userId == req.params.id);
+    const post = posts.filter((p) => p.userId == req.params.id);
 
-    if (userId) {
-      let filteredPosts = posts.filter((u) => u.userId === userId);
-      res.json(filteredPosts);
-    } else {
-      next();
-    }
-}); */
+    if (post) res.json(post);
+    else next();
+}); 
 
-/*router
+// Retrieves comments made by the user with the specified id.
+router
   .route("/:id/comments")
   .get((req, res, next) => {
-    const userId = users.find((u) => u.id == req.params.id);
-    const postId =  req.query.postId;
+    const comment = comments.filter((c) => c.userId == req.params.id);
     
-    if (postId) {
-      let filteredComments = comments.filter((u) => u.postId === postId);
-      res.json(filteredComments);
-    } else {
-      next();
-    } 
-}); */
+    if (comment) res.json(comment);
+    else next();
+}); 
 
 module.exports = router;
