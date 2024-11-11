@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-//const users = require("../data/users");
+const users = require("../data/users");
 const posts = require("../data/posts");
 const error = require("../utilities/error");
 
@@ -12,7 +12,6 @@ router.use((req, res, next) => {
 });
 
 // the base route "/" is actuall "/api/posts/"
-// the base paths defined in index.js.
 router
   .route("/")
   .get((req, res) => {
@@ -86,21 +85,15 @@ router
     else next();
 });
 
+// Retrieves all posts by a user with the specified postId.
+// GET /api/posts?userId=<VALUE>
 router
   .route("/")
-  .get((req, res) => {
+  .get((req, res, next) => {
     const userId = req.query.userId;
-    console.log(userId);
-    let filterdUserId = posts.filter((user) => user.userId == userId);
-    res.json(filterdUserId); 
-  });
-    /*
-    if (userId) {
-      filteredByUserId = filteredByUserId.filter((u) => u.userId == userId);
-      res.json(filteredByUserId);
-    } else {
-      next();
-    }   */
-
+    const filteredUserId = posts.filter((p) => p.userId == userId);
+    if (filteredUserId) res.json(filteredUserId);
+    else next();
+}); 
 
 module.exports = router;
