@@ -13,7 +13,6 @@ router.use((req, res, next) => {
 }); 
 
 // the base route "/" is actually "/api/users/"
-// the base paths defined in index.js.
 router
   .route("/")
   .get((req, res) => {
@@ -43,7 +42,6 @@ router
       };
 
       users.push(user);
-      //res.json(users[users.length - 1]);
       res.render("getUser", { users: users });
     } else next(error(400, "Insufficient Data"));
 });
@@ -82,7 +80,6 @@ router
       }
     });
 
-    //if (user) res.json(user);
     if (user) res.render("getUserId", {user: user, id: req.params.id });
     else next();
 });
@@ -97,7 +94,6 @@ router
       }
     });
 
-    //if (user) res.json(user);
     if (user) res.render("getUser", { users: users });
     else next();
 });
