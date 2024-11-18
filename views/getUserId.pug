@@ -1,12 +1,13 @@
 doctype html 
 html
+    block lets
     head 
         title User's Detail 
         style.
             a:link { text-decoration: none; } 
             
     body 
-        h1 User ID: #{id}
+        h1 User ID: #{id} 
         p(style="display:none") user= #{user}
         p(style="display:none") links= #{links}
         div(id="main")
@@ -18,26 +19,24 @@ html
         ul
             each val, key in user
                 p= key + ': ' + val
-            li Update a user: 
-                form(action=`/api/users` method="PATCH")
-                    input(type="number" id="id" name="id" min="1" placeholder="Enter user id")
+            br
+            li Delete this user: 
+                form(action=`/api/users/${id}?_method=DELETE` method="POST")
                     br
-                    input(type="text" id="name" name="name" placeholder="Enter name")
+                    input(type="submit" value="Delete")
+            br
+            li Update this user: 
+                form(action=`/api/users/${id}?_method=PATCH` method="POST") 
                     br
-                    input(type="text" id="username" name="username" placeholder="Enter username")
+                    label(for="name") - Name: 
+                    input(type="text" id="name" name="name" placeholder="Enter name" value=user.name)
                     br
-                    input(type="email" id="email" name="email" placeholder="Enter email")
-                    input(type="submit" value="PATCH")
+                    label(for="username") - Username: 
+                    input(type="text" id="username" name="username" placeholder="Enter username" value=user.username)
+                    br
+                    label(for="email") - Email:  
+                    input(type="email" id="email" name="email" placeholder="Enter email" value=user.email)
                     br
                     br
-            li Delete a user: 
-                form(action=`/api/users` method="DELETE")
-                    input(type="number" id="id" name="id" min="1" placeholder="Enter user id")
-                    br
-                    input(type="text" id="name" name="name" placeholder="Enter name")
-                    br
-                    input(type="text" id="username" name="username" placeholder="Enter username")
-                    br
-                    input(type="email" id="email" name="email" placeholder="Enter email")
-                    input(type="submit" value="DELETE")
-                    br
+                    input(type="submit" value="Update")
+                    
