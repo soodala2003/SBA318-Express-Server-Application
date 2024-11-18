@@ -44,10 +44,10 @@ html
                             input(type="submit" value="POST")
                     br
                     li Filter Posts by User ID: 
-                        form(id="postFilterForm" action=`/api/posts` method="GET")
+                        form(id="postFilterForm" action=`/api/posts method="GET`)
                             input(type="number" id="userId" name="userId" min="1" placeholder="Enter user id")
                             input(type="submit" value="FILTER") 
-                        //form(id="postFilterForm" action=`/api/posts?userId=${filteredUserId}` method="GET")     
+                        //form(id="postFilterForm" action=`/api/posts?userId=${input.value}?_method="GET` method="POST")    
                     br
 
             div(id="comments")
