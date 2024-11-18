@@ -90,8 +90,8 @@ router
 router
   .route("/")
   .get((req, res, next) => {
-    const userId = req.query.userId;
-    const filteredUserId = posts.filter((p) => p.userId == userId);
+    const userID = req.query.userId;
+    const filteredUserId = posts.filter((p) => p.userId == userID);
     if (filteredUserId) res.json(filteredUserId);
     else next();
 }); 
