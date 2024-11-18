@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
+const methodOverride = require("method-override");
 
 const app = express();
 const port = 3000;
@@ -15,6 +16,7 @@ const error = require("./utilities/error");
 // Parsing Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ extended: true }));
+app.use(methodOverride("_method"));
 
 // serve static files from the public directory
 app.use(express.static(path.join(__dirname, "public")));
