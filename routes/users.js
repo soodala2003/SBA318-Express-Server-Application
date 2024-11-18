@@ -25,7 +25,10 @@ router
       },
     ];
     res.render("getUser", { users: users, links: links });
-  })
+});
+
+router
+  .route("/")
   .post((req, res, next) => {
     if (req.body.name && req.body.username && req.body.email) {
       if (users.find((u) => u.username == req.body.username)) {
@@ -40,7 +43,8 @@ router
       };
 
       users.push(user);
-      res.json(users[users.length - 1]);
+      //res.json(users[users.length - 1]);
+      res.render("getUser", { users: users });
     } else next(error(400, "Insufficient Data"));
 });
 
@@ -78,9 +82,13 @@ router
       }
     });
 
-    if (user) res.json(user);
+    //if (user) res.json(user);
+    if (user) res.render("getUserId", {user: user, id: req.params.id });
     else next();
-  })
+});
+
+router
+  .route("/:id")
   .delete((req, res, next) => {
     const user = users.find((u, i) => {
       if (u.id == req.params.id) {
@@ -89,7 +97,8 @@ router
       }
     });
 
-    if (user) res.json(user);
+    //if (user) res.json(user);
+    if (user) res.render("getUser", { users: users });
     else next();
 });
 
